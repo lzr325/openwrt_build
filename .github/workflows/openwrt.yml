@@ -78,7 +78,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: OpenWrt_Source
-          path: ./
+          path: ./openwrt.tgz
 
       # - name : Upload artifact
       #   uses: actions/upload-artifact@master

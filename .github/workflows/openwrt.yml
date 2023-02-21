@@ -58,19 +58,29 @@ jobs:
       #   run: |
       #     make defconfig
 
-      - name: Download package source code
-        run: |
-          make download -j8
-          find dl -size -1024c -exec ls -l {} \;
-          find dl -size -1024c -exec rm -f {} \;
+      # - name: Download package source code
+      #   run: |
+      #     make download -j8
+      #     find dl -size -1024c -exec ls -l {} \;
+      #     find dl -size -1024c -exec rm -f {} \;
 
-      - name: Compile firmware
-        run: |
-          echo -e "$(nproc) thread build."
-          make -j$(nproc) V=s
+      # - name: Download package source code
+      #   run: |
+      #     make download -j8
 
-      - name : Upload artifact
+      # - name: Compile firmware
+      #   run: |
+      #     echo -e "$(nproc) thread build."
+      #     make -j$(nproc) V=s
+
+      - name : Upload Source Code
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt_firmware
-          path: bin/targets/
+          name: OpenWrt_Source
+          path: ./
+
+      # - name : Upload artifact
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: OpenWrt_firmware
+      #     path: bin/targets/

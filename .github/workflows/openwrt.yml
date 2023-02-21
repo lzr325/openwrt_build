@@ -11,7 +11,7 @@ on:
   # schedule:
   #   - cron: 0 0 1 * *
   watch:
-    types: started
+    types: [started]  #点Star触发开始编译
 
 jobs:
   build:

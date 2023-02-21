@@ -28,9 +28,7 @@ jobs:
       - name: Download openwrt
         run: |
           git clone https://git.openwrt.org/openwrt/openwrt.git
-          cd openwrt && git checkout v22.03.3 && cd ../
-          cp .config ./openwrt/.config
-          mv ./openwrt/* ./
+          cd openwrt && git checkout v22.03.3
 
       # - name: Install Package
       #   run: |
@@ -54,19 +52,19 @@ jobs:
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          make defconfig
 
-      # - name: Costom configure file
-      #   run: |
-      #     make defconfig
+      - name: Costom configure file
+        run: |
+          cp x86_64_config openwrt/.config
+          cd openwrt && make defconfig
 
       - name: Download package source code
         run: |
-          make download V=s
+          cd openwrt && make -j8 download V=s
 
       - name: Compile firmware
         run: |
-          make V=s
+          cd openwrt && make -j8 V=s
 
       - name : Upload artifact
         uses: actions/upload-artifact@master

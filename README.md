@@ -1,2 +1,1 @@
-# openwrt_build
-Openwrt auto build
+# OpenWrt Auto Build

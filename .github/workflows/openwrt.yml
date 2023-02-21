@@ -61,7 +61,7 @@ jobs:
 
       - name: Download package source code
         run: |
-          make download -j8
+          make download V=s
 
       - name: Compile firmware
         run: |

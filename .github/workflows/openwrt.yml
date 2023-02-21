@@ -28,7 +28,7 @@ jobs:
       - name: Download openwrt
         run: |
           git clone https://git.openwrt.org/openwrt/openwrt.git
-          git checkout 22.03.3
+          cd openwrt && git checkout 22.03.3 && cd ../
           cp .config ./openwrt/.config
           mv ./openwrt/* ./
 

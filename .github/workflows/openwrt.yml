@@ -5,13 +5,8 @@
 name: OpenWrt
 
 on:
-  push:
-    branches: 
-      - master
-  # schedule:
-  #   - cron: 0 0 1 * *
   watch:
-    types: [started]  #点Star触发开始编译
+    types: [started]
 
 jobs:
   build:

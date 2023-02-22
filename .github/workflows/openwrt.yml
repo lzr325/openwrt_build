@@ -47,14 +47,10 @@ jobs:
 
       - name: Pack Files
         run: |
-          ls openwrt
-          ls openwrt/tmp
           tar -czvf openwrt.tgz openwrt
-          ls -lh ./
 
-      # - name : Upload Source Code
-      #   uses: actions/upload-artifact@master
-      #   with:
-      #     name: OpenWrt_Source
-      #     path: ./openwrt.tgz
-
+      - name : Upload Source Code
+        uses: actions/upload-artifact@master
+        with:
+          name: OpenWrt_Source
+          path: ./openwrt.tgz

@@ -43,7 +43,7 @@ jobs:
 
       - name: Download package source code
         run: |
-          make download V=s
+          cd openwrt && make download V=s
 
       - name: Pack Files
         run: |

@@ -28,60 +28,32 @@ jobs:
       - name: Download openwrt
         run: |
           git clone https://git.openwrt.org/openwrt/openwrt.git
-          cp .config ./openwrt/.config
-          mv ./openwrt/* ./
-
-      # - name: Install Package
-      #   run: |
-      #     echo "src-git helloworld https://github.com/fw876/helloworld" >> ./feeds.conf.default
-
-      # - name: Install OpenClash
-      #   run: |
-      #     mkdir package/luci-app-openclash
-      #     cd package/luci-app-openclash
-      #     git init
-      #     git remote add -f origin https://github.com/vernesong/OpenClash.git
-      #     git config core.sparsecheckout true
-      #     echo "luci-app-openclash" >> .git/info/sparse-checkout
-      #     git pull --depth 1 origin master
-      #     git branch --set-upstream-to=origin/master master
-      #     pushd luci-app-openclash/tools/po2lmo
-      #     make && sudo make install
-      #     popd
+          cd openwrt && git checkout v22.03.3
 
       - name: Update feeds
         run: |
+          cd openwrt
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          tar -czvf openwrt.tgz ./*
 
-      # - name: Costom configure file
-      #   run: |
-      #     make defconfig
+      - name: Costom configure file
+        run: |
+          cp x86_64_config openwrt/.config
+          cd openwrt && make defconfig
 
-      # - name: Download package source code
-      #   run: |
-      #     make download -j8
-      #     find dl -size -1024c -exec ls -l {} \;
-      #     find dl -size -1024c -exec rm -f {} \;
+      - name: Download package source code
+        run: |
+          make download V=s
 
-      # - name: Download package source code
-      #   run: |
-      #     make download -j8
+      - name: Pack Files
+        run: |
+          ls openwrt
+          ls openwrt/tmp
+          tar -czvf openwrt.tgz openwrt
 
-      # - name: Compile firmware
-      #   run: |
-      #     echo -e "$(nproc) thread build."
-      #     make -j$(nproc) V=s
-
-      - name : Upload Source Code
-        uses: actions/upload-artifact@master
-        with:
-          name: OpenWrt_Source
-          path: ./openwrt.tgz
-
-      # - name : Upload artifact
+      # - name : Upload Source Code
       #   uses: actions/upload-artifact@master
       #   with:
-      #     name: OpenWrt_firmware
-      #     path: bin/targets/
+      #     name: OpenWrt_Source
+      #     path: ./openwrt.tgz
+

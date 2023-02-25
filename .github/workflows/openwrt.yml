@@ -28,7 +28,9 @@ jobs:
       - name: Download openwrt
         run: |
           git clone https://git.openwrt.org/openwrt/openwrt.git
-          cd openwrt && git checkout v22.03.3
+          cd openwrt
+          git pull
+          git checkout v22.03.3
 
       - name: Update feeds
         run: |
@@ -43,7 +45,7 @@ jobs:
 
       - name: Download package source code
         run: |
-          cd openwrt && make download V=s
+          cd openwrt && make download
 
       - name: Pack Files
         run: |
